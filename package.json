@@ -1,0 +1,22 @@
+{
+  "name": "workWherever",
+  "version": "0.1.0",
+  "description": "Work Wherever project server backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/grunt-cli/bin/grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thewillhuang/workWherever.git"
+  },
+  "author": "will.h86@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thewillhuang/workWherever/issues"
+  },
+  "homepage": "https://github.com/thewillhuang/workWherever",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
