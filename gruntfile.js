@@ -1,20 +1,22 @@
 'use strict';
 
 module.exports = function(grunt) {
+  var srcFiles = ['*.js', 'myMod/**/*.js'];
+
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');
   grunt.loadNpmTasks('grunt-jscs');
 
   grunt.initConfig({
     jshint: {
-      all: ['myMod/*.js'],
+      all: srcFiles,
       options: {
         jshintrc: true
       }
     },
 
     jscs: {
-      src: 'myMod/**/*.js',
+      src: srcFiles,
       options: {
         config: '.jscsrc'
       }
