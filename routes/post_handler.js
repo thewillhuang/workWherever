@@ -6,7 +6,7 @@ var postHandler = function(req, res) {
 
   req.wifiHotspot.save(function(err) {
     if (err) { return res.status(500).json({}); }
-    res.json({});
+    res.json({id: req.wifiHotspot._id});
   });
 };
 
