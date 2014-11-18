@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 
 var schema = {
+  placeID: 'String',
   ipAddress: 'String',
   dateTime: 'Number',
   downloadMbps: 'Number',
