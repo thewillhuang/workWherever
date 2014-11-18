@@ -1,7 +1,12 @@
 'use strict';
 
 module.exports = function(grunt) {
-  var srcFiles = ['*.js', 'myMod/**/*.js'];
+  var srcFiles = [
+    '*.js',
+    'lib/**/*.js',
+    'myMod/**/*.js',
+    'routes/**/*.js'
+  ];
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-simple-mocha');

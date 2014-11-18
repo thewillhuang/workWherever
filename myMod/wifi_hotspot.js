@@ -2,14 +2,22 @@
 
 var mongoose = require('mongoose');
 
-var wifiHotspotSchema = mongoose.Schema({
+var schema = {
   ipAddress: 'String',
   dateTime: 'Number',
   downloadMbps: 'Number',
   uploadMbps: 'Number',
-  pingMsec: 'Number'
-});
+  pingMsec: 'Number',
+  ispName: 'String'
+};
 
-var WifiHotspot = mongoose.model('WifiHotspot', wifiHotspotSchema);
+var wifiHotspotSchema = mongoose.Schema(schema);
 
-module.exports = WifiHotspot;
+wifiHotspotSchema.methods.validateField = function(field) {
+  for (var key in schema) {
+    if (key === field) { return true; }
+  }
+  return false;
+};
+
+module.exports = mongoose.model('WifiHotspot', wifiHotspotSchema);
