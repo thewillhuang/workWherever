@@ -47,9 +47,13 @@ describe('REST API tests', function() {
     });
   });
 
-  it('cleanup', function(done) {
-    WifiHotspot.remove({_id: id}, function(err) {
-      expect(err).to.equal(null);
+  it('should be able to delete data by database id', function(done) {
+    chai.request(server).
+    delete('/api/' + id).
+    end(function(err, res) {
+      expect(err).equals(null);
+      expect(res).to.be.a('object');
+      expect(res).to.have.status(200);
       done();
     });
   })
