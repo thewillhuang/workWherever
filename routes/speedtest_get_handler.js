@@ -1,7 +1,22 @@
 'use strict';
 
-var speedTestGetHandler = function(/*req, res*/) {
-  //TODO: Perform speed test (server side).
+var fs = require('fs');
+var genData = require('../myMod/speedtest');
+var textFile = __dirname + '/test.txt';
+
+var speedTestGetHandler = function(req, res) {
+  if (!req.params) { return res.status(500).send(); }
+
+  fs.writeFile(textFile, genData(+req.params.sizeKbs), function(err) {
+    if (err) { return res.status(500).send(); }
+
+    res.set({
+      'x-Date': new Date().getTime(),
+      'x-SizeKbs': req.params.sizeKbs
+    });
+
+    fs.createReadStream(textFile).pipe(res);
+  });
 };
 
 module.exports = speedTestGetHandler;

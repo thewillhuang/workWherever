@@ -21,9 +21,44 @@ $(function() {
     return assoc;
   };
 
-  var id = getQueryStrings().id;
+  var id = getQueryStrings().id;  // Database ID
+  var stepKbs = 1024; // Initial size (KB) and increase by in each iteration
+  var maxItr = 5;     // Total number of download tests
 
-  //TODO: Perform speed test (client side).
+  var itr = maxItr;
+  var msecTotal = 0;
+  var msecPrev;
 
-  //TODO: Post the speed test results to the server with the id.
+  var speedTest = function(sizeKbs, done) {
+    var dfd = $.Deferred();
+
+    var xhr = $.ajax({
+      contentType: 'text/plain; charset=utf-8',
+      url: '/speedtest/api/' + sizeKbs,
+      dataType: 'text',
+      success: dfd.resolve,
+      error: dfd.reject
+    });
+
+    dfd.promise().then(function() {
+      var msec = new Date().getTime() - +xhr.getResponseHeader('x-Date');
+      if (msecPrev) { msecTotal += msec - msecPrev; }
+      msecPrev = msec;
+      if (itr-- > 0) return speedTest(sizeKbs + stepKbs, done);
+      done();
+    }).fail(function(err) {
+      done(err);
+    });
+  };
+
+  speedTest(stepKbs, function(err) {
+    if (err || msecTotal <= 0) {
+      //TODO DELETE id
+      return;
+    }
+
+    var mbps = stepKbs * 8 / (msecTotal / maxItr);  // Average M bits per sec
+    //TODO: POST the speed test results to the server with the id.
+    console.log(mbps + 'Mbps');//TODO
+  });
 });

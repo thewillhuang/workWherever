@@ -13,3 +13,4 @@ var genData = function(sizeKbs) {
 // var fs = require('fs');
 // fs.writeFile('test.txt', genData(1024));
 
+module.exports = genData;
