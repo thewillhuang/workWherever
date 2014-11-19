@@ -7,11 +7,6 @@ var bodyparser = require('body-parser');
 var parsePost = require('./lib/parse_post');
 var isp = require('./lib/isp');
 
-var postHandler = require('./routes/post_handler');
-var getByIdHandler = require('./routes/get_by_id_handler');
-var deleteByIdHandler = require('./routes/delete_by_id_handler');
-var getAllHandler = require('./routes/get_all_handler');
-
 mongoose.connect(process.env.MONGOHQ_URL || 'mongodb://localhost/test');
 
 var app = express();
@@ -20,9 +15,12 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyparser.json());
 app.use(express.static(__dirname + '/public'));
 
-app.post('/api', [parsePost, isp], postHandler);
-app.get('/api/:id', getByIdHandler);
-app.delete('/api/:id', deleteByIdHandler);
-app.get('/stub/get', getAllHandler);
+app.post('/api', [parsePost, isp], require('./routes/post_handler'));
+app.get('/api/:id', require('./routes/get_by_id_handler'));
+app.delete('/api/:id', require('./routes/delete_by_id_handler'));
+app.get('/stub/get', require('./routes/get_all_handler'));
+
+app.get('/speedtest/api', require('./routes/speedtest_get_handler'));
+app.post('/speedtest/api', require('./routes/speedtest_post_handler'));
 
 app.listen(app.get('port'));
