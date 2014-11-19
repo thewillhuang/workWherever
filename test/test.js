@@ -9,8 +9,18 @@ var expect = chai.expect;
 require('../index');
 chai.use(chaihttp);
 
-describe('REST API tests', function() {
-  it('TODO');
+describe('REST API tests (GET)', function() {
+  it('test to make sure google api works', function(done) {
+    chai.request('http://localhost:3000')
+      .get('/google/api/location=-33.8670522,151.1957362&radius=500&types=food&name=cruise')
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.body.results).to.be.a('Array');
+        expect(res.body.results[0]).to.be.a('object');
+        expect(res.body.results[0].place_id).to.be.a('string');
+        done();
+      });
+  });
 });
 
 describe('REST API tests (POST)', function() {
