@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   var srcFiles = [
     '*.js',
     'lib/**/*.js',
-    'myMod/**/*.js',
+    'lib/**/*.js',
     'routes/**/*.js'
   ];
 
