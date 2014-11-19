@@ -51,14 +51,51 @@ $(function() {
     });
   };
 
+  var hideWaitAnimation = function(done) {
+    done = done || function() {};
+    $('#wait').slideUp('fast', done);
+  };
+
   speedTest(stepKbs, function(err) {
     if (err || msecTotal <= 0) {
-      //TODO DELETE id
+      $.ajax({
+        type: 'DELETE',
+        url: '/api/' + id,
+        success: function() {
+          //TODO: Speed test failed and database entry is deleted. Retry?
+        },
+        error: function() {
+          //TODO: Retry?
+        }
+      });
+      hideWaitAnimation();
       return;
     }
 
     var mbps = stepKbs * 8 / (msecTotal / maxItr);  // Average M bits per sec
-    //TODO: POST the speed test results to the server with the id.
-    console.log(mbps + 'Mbps');//TODO
+
+    var data = {
+      _id: id,
+      downloadMbps: mbps
+    };
+
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json; charset=utf-8',
+      url: '/speedtest/api',
+      dataType: 'json',
+      success: function() {
+        hideWaitAnimation(function() {
+          $('#downloadMbps').
+            hide().
+            text(data.downloadMbps.toFixed(1) + ' Mbps (down)').
+            slideDown('fast');
+        });
+      },
+      error: function() {
+        //TODO: Retry post?
+      }
+    });
   });
 });

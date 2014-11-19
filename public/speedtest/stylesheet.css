@@ -1,3 +1,11 @@
 * {
   font-family: Helvetica, Arial;
 }
+
+body {
+  text-align: center;
+}
+
+.results {
+  font-size: 24pt;
+}
