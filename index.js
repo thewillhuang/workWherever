@@ -12,6 +12,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyparser.json());
 app.use(express.static(__dirname + '/public'));
 
+app.post('/api', require('./routes/post_handler'));
 app.delete('/api/:id', require('./routes/delete_by_id_handler'));
 
 app.get('/speedtest/api/:sizeKbs', require('./routes/speedtest_get_handler'));
