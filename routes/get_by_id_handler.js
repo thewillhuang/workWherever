@@ -1,6 +1,6 @@
 'use strict';
 
-var WifiHotspot = require('../myMod/wifi_hotspot');
+var WifiHotspot = require('../lib/wifi_hotspot');
 
 var getByIdHandler = function(req, res) {
   if (!req.params) { return res.status(500).json({}); }

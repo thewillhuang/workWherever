@@ -2,7 +2,7 @@
 
 var chai = require('chai');
 var chaihttp = require('chai-http');
-var WifiHotspot = require('../myMod/wifi_hotspot');
+var WifiHotspot = require('../lib/wifi_hotspot');
 
 var server = 'http://localhost:' + (process.env.PORT || 3000);
 var expect = chai.expect;

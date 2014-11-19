@@ -1,7 +1,7 @@
 'use strict';
 
 var fs = require('fs');
-var genData = require('../myMod/speedtest');
+var genData = require('../lib/speedtest');
 var textFile = __dirname + '/test.txt';
 
 var speedTestGetHandler = function(req, res) {
