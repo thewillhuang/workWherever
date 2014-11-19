@@ -20,7 +20,7 @@ app.get('/api/:id', require('./routes/get_by_id_handler'));
 app.delete('/api/:id', require('./routes/delete_by_id_handler'));
 app.get('/stub/get', require('./routes/get_all_handler'));
 
-app.get('/speedtest/api', require('./routes/speedtest_get_handler'));
+app.get('/speedtest/api/:sizeKbs', require('./routes/speedtest_get_handler'));
 app.post('/speedtest/api', require('./routes/speedtest_post_handler'));
 
 app.listen(app.get('port'));

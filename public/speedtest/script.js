@@ -21,9 +21,81 @@ $(function() {
     return assoc;
   };
 
-  var id = getQueryStrings().id;
+  var id = getQueryStrings().id;  // Database ID
+  var stepKbs = 1024; // Initial size (KB) and increase by in each iteration
+  var maxItr = 5;     // Total number of download tests
 
-  //TODO: Perform speed test (client side).
+  var itr = maxItr;
+  var msecTotal = 0;
+  var msecPrev;
 
-  //TODO: Post the speed test results to the server with the id.
+  var speedTest = function(sizeKbs, done) {
+    var dfd = $.Deferred();
+
+    var xhr = $.ajax({
+      contentType: 'text/plain; charset=utf-8',
+      url: '/speedtest/api/' + sizeKbs,
+      dataType: 'text',
+      success: dfd.resolve,
+      error: dfd.reject
+    });
+
+    dfd.promise().then(function() {
+      var msec = new Date().getTime() - +xhr.getResponseHeader('x-Date');
+      if (msecPrev) { msecTotal += msec - msecPrev; }
+      msecPrev = msec;
+      if (itr-- > 0) return speedTest(sizeKbs + stepKbs, done);
+      done();
+    }).fail(function(err) {
+      done(err);
+    });
+  };
+
+  var hideWaitAnimation = function(done) {
+    done = done || function() {};
+    $('#wait').slideUp('fast', done);
+  };
+
+  speedTest(stepKbs, function(err) {
+    if (err || msecTotal <= 0) {
+      $.ajax({
+        type: 'DELETE',
+        url: '/api/' + id,
+        success: function() {
+          //TODO: Speed test failed and database entry is deleted. Retry?
+        },
+        error: function() {
+          //TODO: Retry?
+        }
+      });
+      hideWaitAnimation();
+      return;
+    }
+
+    var mbps = stepKbs * 8 / (msecTotal / maxItr);  // Average M bits per sec
+
+    var data = {
+      _id: id,
+      downloadMbps: mbps
+    };
+
+    $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json; charset=utf-8',
+      url: '/speedtest/api',
+      dataType: 'json',
+      success: function() {
+        hideWaitAnimation(function() {
+          $('#downloadMbps').
+            hide().
+            text(data.downloadMbps.toFixed(1) + ' Mbps (down)').
+            slideDown('fast');
+        });
+      },
+      error: function() {
+        //TODO: Retry post?
+      }
+    });
+  });
 });
