@@ -95,6 +95,7 @@ $(function() {
       },
       error: function() {
         //TODO: Retry post?
+        hideWaitAnimation();
       }
     });
   });
