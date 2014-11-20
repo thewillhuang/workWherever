@@ -76,6 +76,17 @@ describe('REST API tests', function() {
     });
   });
 
+  it('should reject request for download size > 10MB', function(done) {
+    chai.request(server).
+    get('/speedtest/api/10241').
+    end(function(err, res) {
+      expect(err).equals(null);
+      expect(res).to.be.a('object');
+      expect(res).to.have.status(500);
+      done();
+    });
+  });
+
   it('cleanup', function(done) {
     Results.remove({_id: id}, function(err) {
       expect(err).equals(null);
