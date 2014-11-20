@@ -40,6 +40,7 @@ resultsSchema.methods.addParkingRating = function(parkingRating) {
 resultsSchema.methods.avgPing = function() {
   var total = 0;
   var len = this.pingMs.length;
+  if (len === 0) {return 0;}
   for (var i = len - 1; i >= 0; i--) {
     total += this.pingMs[i];
   }
@@ -50,6 +51,7 @@ resultsSchema.methods.avgPing = function() {
 resultsSchema.methods.avgDl = function() {
   var total = 0;
   var len = this.downloadMbps.length;
+  if (len === 0) {return 0;}
   for (var i = len - 1; i >= 0; i--) {
     total += this.downloadMbps[i];
   }
@@ -60,6 +62,7 @@ resultsSchema.methods.avgDl = function() {
 resultsSchema.methods.avgUl = function() {
   var total = 0;
   var len = this.uploadMbps.length;
+  if (len === 0) {return 0;}
   for (var i = len - 1; i >= 0; i--) {
     total += this.uploadMbps[i];
   }
@@ -70,11 +73,21 @@ resultsSchema.methods.avgUl = function() {
 resultsSchema.methods.avgPark = function() {
   var total = 0;
   var len = this.parkingRating.length;
+  if (len === 0) {return 0;}
   for (var i = len - 1; i >= 0; i--) {
     total += this.parkingRating[i];
   }
   var avg = total / len;
   return avg;
+};
+
+resultsSchema.methods.createTestResult = function() {
+  var speedTestResult = {};
+  speedTestResult.avgPark = this.avgPark;
+  speedTestResult.avgUl = this.avgUl;
+  speedTestResult.avgDl = this.avgDl;
+  speedTestResult.avgPing = this.avgPing;
+  return speedTestResult;
 };
 
 module.exports = mongoose.model('Result', resultsSchema);

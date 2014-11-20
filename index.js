@@ -18,6 +18,7 @@ app.get('/speedtest/api/:sizeKbs', require('./routes/speedtest_get_handler'));
 app.post('/speedtest/api', require('./routes/speedtest_post_handler'));
 //returns google places api search objects for ios.
 app.get('/google/api/:search', require('./routes/get_handler_for_google'));
+app.get('/google/inj/:search', require('./routes/google_inject_handler'));
 app.post('/api', require('./routes/post_handler'));
 
 app.listen(app.get('port'));
