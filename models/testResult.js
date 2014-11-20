@@ -20,20 +20,35 @@ var resultsSchema = new Schema({
   parkingRating: [Number]
 });
 
+// set a maximum array length so the document don't get too big.
+var maxArrayLength = 300;
+
 //insert functions
 resultsSchema.methods.addPing = function(ping) {
+  if (this.pingMs.length > maxArrayLength) {
+    this.pingMs.shift();
+  }
   this.pingMs.push(ping);
 };
 
 resultsSchema.methods.addDownloadSpeed = function(downloadMbps) {
+  if (this.downloadMbps.length > maxArrayLength) {
+    this.downloadMbps.shift();
+  }
   this.downloadMbps.push(downloadMbps);
 };
 
 resultsSchema.methods.addUploadSpeed = function(uploadMbps) {
+  if (this.uploadMbps.length > maxArrayLength) {
+    this.uploadMbps.shift();
+  }
   this.uploadMbps.push(uploadMbps);
 };
 
 resultsSchema.methods.addParkingRating = function(parkingRating) {
+  if (this.parkingRating.length > maxArrayLength) {
+    this.parkingRating.shift();
+  }
   this.parkingRating.push(parkingRating);
 };
 
