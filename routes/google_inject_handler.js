@@ -27,34 +27,24 @@ var googleInjHandler = function(req, res) {
   .get(url + 'key=' + apiKey + '&' + req.params.search)
   .end(function(req, gData) {
     var parsedData = JSON.parse(gData.text);
-    var tempData = parsedData.results;
-    //console.log(tempData);
-    var tryMap = _.map(tempData, function(object) {
-      console.log('------------------------');
-      //console.log(object);
-      var key = {
-        place_id: object.place_id
-      };
-      //console.log(key);
-      var query = Results.findOne(key);
-      console.log(query);
-    });
-    //console.log(tempData[0].place_id);
+    var tempResults = parsedData.results;
     delete parsedData.results;
-    //console.log(parsedData);
-    // var mergedResults = _.map(tempData, function(object) {
-    //   var key = {
-    //     "place_id": object.place_id
-    //   };
-    //   console.log(object);
-    //   Results.findOne(key, function(err, data) {
-    //     if (err) return err;
-    //     console.log(data.createTestResult);
-    //     return data.createTestResult;
-    //   });
-    // });
-    // parsedData.results = mergedResults;
-    // res.json(parsedData);
+    var mergedResults = _.map(tempResults, function(object) {
+      var key = {
+        placeID: object.place_id
+      };
+      var query = Results.findOne(key);
+      query.exec(function(err, results) {
+        if (err) {
+          return console.log('no data');
+        }
+        //object.speedTestResults = results.createTestResult();
+        object.mockTestResults = {leeroy:'jenkins'};
+        return object;
+      });
+    });
+    parsedData.results = mergedResults;
+    res.json(parsedData);
   });
 };
 
