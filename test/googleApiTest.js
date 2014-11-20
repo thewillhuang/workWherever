@@ -28,6 +28,18 @@ describe('Google API tests', function() {
       expect(res.body.results).to.be.a('Array');
       expect(res.body.results[0]).to.be.a('object');
       expect(res.body.results[0].place_id).to.be.a('string');
+      done();
+    });
+  });
+
+  it('should make sure server call and creates speedTestResults', function(done) {
+    chai.request(server)
+    .get('/google/inj/location=-33.8670522,151.1957362&radius=5000&types=food&name=cruise')
+    .end(function(err, res) {
+      expect(err).to.eql(null);
+      expect(res.body.results).to.be.a('Array');
+      expect(res.body.results[0]).to.be.a('object');
+      expect(res.body.results[0].place_id).to.be.a('string');
       expect(res.body.results[0].speedTestResults).to.be.a('object');
       expect(res.body.results[0].speedTestResults).to.have.property('avgPark');
       expect(res.body.results[0].speedTestResults).to.have.property('avgPing');
