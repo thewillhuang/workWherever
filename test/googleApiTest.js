@@ -21,21 +21,16 @@ describe('Google API tests', function() {
     });
   });
 
-  // request(server)
-  //   .post('/api')
-  //   .field('placeID', 'ChIJO6GbU12uEmsR72DXD6NYoY4');
-  // request(server)
-  //   .post('/speedtest/api')
-  //   .send({placeID: 'ChIJO6GbU12uEmsR72DXD6NYoY4', downloadMbps: 20.0});
-
-  it('should make sure google api works', function(done) {
+  it('should make sure server call and google injection works', function(done) {
     chai.request(server)
     .get('/google/inj/location=-33.8670522,151.1957362&radius=5000&types=food&name=cruise')
     .end(function(err, res) {
-      console.log('=========================================');
       console.log('res.body', res.body);
-      //console.log('-----------------------------------------');
-      //console.log('res.body.results[0].mockTestResults', res.body.results[0].mockTestResults);
+      expect(err).to.eql(null);
+      expect(res.body.results).to.be.a('Array');
+      expect(res.body.results[0]).to.be.a('object');
+      expect(res.body.results[0].place_id).to.be.a('string');
+      expect(res.body.results[0].speedTestResults).to.be.a('object');
       done();
     });
   });
