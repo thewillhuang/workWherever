@@ -31,7 +31,7 @@ var googleInjHandler = function(req, res) {
       //retreve the document
       var query = Results.findOne(key);
       query.exec(function(err, results) {
-        if (err) {
+        if (err || !results) {
           return console.log('no data');
         }
         //execute createTestResult() that will create an object
