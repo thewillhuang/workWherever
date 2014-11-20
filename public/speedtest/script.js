@@ -58,16 +58,7 @@ $(function() {
 
   speedTest(stepKbs, function(err) {
     if (err || msecTotal <= 0) {
-      $.ajax({
-        type: 'DELETE',
-        url: '/api/' + id,
-        success: function() {
-          //TODO: Speed test failed and database entry is deleted. Retry?
-        },
-        error: function() {
-          //TODO: Retry?
-        }
-      });
+      //TODO: Retry?
       hideWaitAnimation();
       return;
     }
