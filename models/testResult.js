@@ -1,5 +1,6 @@
 
 // {
+//   "_id":"defined by mongodb"
 //   "placeID":"google api unique location identificer",
 //   "downloadMbps":[],
 //   "uploadMbps":[],
@@ -7,7 +8,7 @@
 //   "parkingRating":[]
 // }
 'use strict';
-
+var _ = require('lodash');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -38,47 +39,31 @@ resultsSchema.methods.addParkingRating = function(parkingRating) {
 
 //averaging functions
 resultsSchema.methods.avgPing = function() {
-  var total = 0;
-  var len = this.pingMs.length;
-  if (len === 0) {return 0;}
-  for (var i = len - 1; i >= 0; i--) {
-    total += this.pingMs[i];
-  }
-  var avg = total / len;
-  return avg;
+  var sum = _.reduce(this.pingMs, function(sum, num) {
+    return sum + num;
+  });
+  return sum / this.pingMs.length;
 };
 
 resultsSchema.methods.avgDl = function() {
-  var total = 0;
-  var len = this.downloadMbps.length;
-  if (len === 0) {return 0;}
-  for (var i = len - 1; i >= 0; i--) {
-    total += this.downloadMbps[i];
-  }
-  var avg = total / len;
-  return avg;
+  var sum = _.reduce(this.downloadMbps, function(sum, num) {
+    return sum + num;
+  });
+  return sum / this.downloadMbps.length;
 };
 
 resultsSchema.methods.avgUl = function() {
-  var total = 0;
-  var len = this.uploadMbps.length;
-  if (len === 0) {return 0;}
-  for (var i = len - 1; i >= 0; i--) {
-    total += this.uploadMbps[i];
-  }
-  var avg = total / len;
-  return avg;
+  var sum = _.reduce(this.uploadMbps, function(sum, num) {
+    return sum + num;
+  });
+  return sum / this.uploadMbps.length;
 };
 
 resultsSchema.methods.avgPark = function() {
-  var total = 0;
-  var len = this.parkingRating.length;
-  if (len === 0) {return 0;}
-  for (var i = len - 1; i >= 0; i--) {
-    total += this.parkingRating[i];
-  }
-  var avg = total / len;
-  return avg;
+  var sum = _.reduce(this.parkingRating, function(sum, num) {
+    return sum + num;
+  });
+  return sum / this.parkingRating.length;
 };
 
 resultsSchema.methods.createTestResult = function() {
