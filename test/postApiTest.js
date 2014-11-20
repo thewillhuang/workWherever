@@ -28,6 +28,7 @@ describe('REST API tests', function() {
     chai.request(server).
     post('/api').
     field('placeID', 'ChIJN1t_tDeuEmsRUsoyG83frY4').
+    field('parkingRating', 5).
     end(function(err, res) {
       expect(err).equals(null);
       expect(res).to.be.a('object');
@@ -40,6 +41,7 @@ describe('REST API tests', function() {
       id = res.body.results._id;
       expect(res.body).to.have.property('url');
       expect(res.body.url).to.equal('/speedtest?id=' + id);
+      expect(res.body.results.parkingRating.length).to.not.equal(0);
       done();
     });
   });
@@ -60,6 +62,7 @@ describe('REST API tests', function() {
     chai.request(server).
     post('/api').
     field('placeID', 'ChIJN1t_tDeuEmsRUsoyG83frY4').
+    field('parkingRating', 10).
     end(function(err, res) {
       expect(err).equals(null);
       expect(res).to.be.a('object');

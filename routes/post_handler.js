@@ -7,27 +7,27 @@ var postHandler = function(req, res) {
   var form = new formidable.IncomingForm();
 
   form.parse(req, function(err, fields) {
-    if (err || !fields || !fields.placeID) {
-      return res.status(500).json({});
-    }
-
-    var createJson = function(results) {
-      return {
-        url: '/speedtest?id=' + results._id,
-        results: results
-      };
-    };
+    if (err || !fields) { return res.status(500).json({}); }
+    if (!fields.placeID) { return res.status(500).json({}); }
+    if (!fields.parkingRating) { return res.status(500).json({}); }
 
     Results.findOne({placeID: fields.placeID}, function(err, data) {
       if (err) { return res.status(500).json({}); }
-      if (data) { return res.json(createJson(data)); }
 
-      var results = new Results();
-      results.placeID = fields.placeID;
+      if (!data) {
+        data = new Results();
+        data.placeID = fields.placeID;
+      }
 
-      results.save(function(err, data) {
+      data.addParkingRating(fields.parkingRating);
+
+      data.save(function(err, data) {
         if (err) { return res.status(500).json({}); }
-        res.json(createJson(data));
+
+        res.json({
+          url: '/speedtest?id=' + data._id,
+          results: data
+        });
       });
     });
   });
