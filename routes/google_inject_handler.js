@@ -51,7 +51,7 @@ var googleInjHandler = function(req, res) {
         object.speedTestResults = results.createTestResult();
       });
       //this mocktestresult object will be deleted, used for testing.
-      object.mockTestResults = {leeroy:'jenkins'};
+      object.mockTestResults = key;
       //return the modified element object
       return object;
     });
