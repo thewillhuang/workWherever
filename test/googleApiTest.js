@@ -34,9 +34,10 @@ describe('Google API tests', function() {
 
   it('should make sure server call and creates speedTestResults', function(done) {
     chai.request(server)
-    .get('/google/inj/location=-33.8670522,151.1957362&radius=5000&types=food&name=cruise')
+    .get('/google/inj/location=47.6178124,-122.3463446&radius=50000')
     .end(function(err, res) {
       expect(err).to.eql(null);
+      console.log(res.body);
       expect(res.body.results).to.be.a('Array');
       expect(res.body.results[0]).to.be.a('object');
       expect(res.body.results[0].place_id).to.be.a('string');
