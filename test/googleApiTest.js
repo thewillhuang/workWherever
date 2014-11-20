@@ -4,6 +4,7 @@ var chai = require('chai');
 var chaihttp = require('chai-http');
 var expect = chai.expect;
 var server = 'http://localhost:' + (process.env.PORT || 3000);
+//var request = require('superagent');
 require('../index');
 chai.use(chaihttp);
 
@@ -19,6 +20,13 @@ describe('Google API tests', function() {
       done();
     });
   });
+
+  // request(server)
+  //   .post('/api')
+  //   .field('placeID', 'ChIJO6GbU12uEmsR72DXD6NYoY4');
+  // request(server)
+  //   .post('/speedtest/api')
+  //   .send({placeID: 'ChIJO6GbU12uEmsR72DXD6NYoY4', downloadMbps: 20.0});
 
   it('should make sure google api works', function(done) {
     chai.request(server)
