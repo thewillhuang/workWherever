@@ -1,8 +1,0 @@
-npm init
-
-"scripts": {
-"test": "node_modules/grunt-cli/bin/grunt test",
-"start": "npm server.js"
-  },
-
-npm install --save-dev chai chai-http grunt-cli grunt-contrib-jshint grunt-jscs grunt-simple-mocha superagent-cli
