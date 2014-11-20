@@ -71,7 +71,8 @@ var googleInjHandler = function(req, res) {
       });
     };
 
-    async.mapSeries(tempResults, dbquery, function(err, parsedData) {
+    async.mapSeries(tempResults, dbquery, function(err, data) {
+      parsedData.results = data;
       res.json(parsedData);
     });
   });
