@@ -4,7 +4,8 @@
   "description": "Work Wherever project server backend.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/grunt-cli/bin/grunt"
+    "test": "node_modules/grunt-cli/bin/grunt",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
