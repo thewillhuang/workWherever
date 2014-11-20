@@ -27,6 +27,7 @@ describe('Google API tests', function() {
       console.log('=========================================');
       console.log('error', err);
       console.log('res.body', res.body);
+      console.log('-----------------------------------------');
       console.log('res.body.results[0].mockTestResults', res.body.results[0].mockTestResults);
       done();
     });

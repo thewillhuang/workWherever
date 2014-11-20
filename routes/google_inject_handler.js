@@ -30,23 +30,19 @@ var googleInjHandler = function(req, res) {
     var tempResults = parsedData.results;
     delete parsedData.results;
     var mergedResults = _.map(tempResults, function(object) {
-      // var key = {
-      //   placeID: object.place_id
-      // };
-      // var query = Results.findOne(key);
-      // query.exec(function(err, results) {
-      //   if (err) {
-      //     return console.log('no data');
-      //   }
-      //   object.speedTestResults = results.createTestResult();
-      //   object.mockTestResults = {leeroy:'jenkins'};
-      //   console.log(object);
-      //   return object;
-      // });
+      var key = {
+        placeID: object.place_id
+      };
+      var query = Results.findOne(key);
+      query.exec(function(err, results) {
+        if (err) {
+          return console.log('no data');
+        }
+        object.speedTestResults = results.createTestResult();
+      });
       object.mockTestResults = {leeroy:'jenkins'};
       return object;
     });
-    console.log(mergedResults);
     parsedData.results = mergedResults;
     res.json(parsedData);
   });
