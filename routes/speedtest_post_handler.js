@@ -1,12 +1,25 @@
 'use strict';
 
+var Results = require('../models/testResult');
+
 var speedTestPostHandler = function(req, res) {
-  if (!req.body) { return res.status(500).json({}); }
+  if (!req.body || !req.body._id || !req.body.downloadMbps) {
+    return res.status(500).json({});
+  }
 
-  //TODO: Merge posted speed test results into the db.
-  console.log(req.body._id, req.body.downloadMbps);//TODO
+  var key = {_id: req.body._id};
 
-  res.json({});
+  Results.findOne(key, function(err, data) {
+    if (err || !data) { return res.status(500).json({}); }
+
+    data.addDownloadSpeed(req.body.downloadMbps);
+    //TODO: uploadMbps, pingMs
+
+    data.save(function(err) {
+      if (err) { return res.status(500).json({}); }
+      res.json({});
+    });
+  });
 };
 
 module.exports = speedTestPostHandler;

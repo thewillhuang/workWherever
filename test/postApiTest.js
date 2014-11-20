@@ -9,21 +9,7 @@ var expect = chai.expect;
 require('../index');
 chai.use(chaihttp);
 
-describe('REST API tests (GET)', function() {
-  it('test to make sure google api works', function(done) {
-    chai.request('http://localhost:3000')
-      .get('/google/api/location=-33.8670522,151.1957362&radius=500&types=food&name=cruise')
-      .end(function(err, res) {
-        expect(err).to.eql(null);
-        expect(res.body.results).to.be.a('Array');
-        expect(res.body.results[0]).to.be.a('object');
-        expect(res.body.results[0].place_id).to.be.a('string');
-        done();
-      });
-  });
-});
-
-describe('REST API tests (POST)', function() {
+describe('REST API tests', function() {
   var id;
   var placeID;
 
@@ -47,12 +33,25 @@ describe('REST API tests (POST)', function() {
       expect(res).to.be.a('object');
       expect(res).to.have.status(200);
       expect(res.body).to.be.a('object');
-      expect(res.body).to.have.property('placeID');
-      placeID = res.body.placeID;
-      expect(res.body).to.have.property('id');
-      id = res.body.id;
+      expect(res.body).to.have.property('results');
+      expect(res.body.results).to.have.property('placeID');
+      placeID = res.body.results.placeID;
+      expect(res.body.results).to.have.property('_id');
+      id = res.body.results._id;
       expect(res.body).to.have.property('url');
       expect(res.body.url).to.equal('/speedtest?id=' + id);
+      done();
+    });
+  });
+
+  it('should be able to add download speed to test results', function(done) {
+    chai.request(server).
+    post('/speedtest/api').
+    send({_id: id, downloadMbps: 20.0}).
+    end(function(err, res) {
+      expect(err).equals(null);
+      expect(res).to.be.a('object');
+      expect(res).to.have.status(200);
       done();
     });
   });
@@ -66,8 +65,9 @@ describe('REST API tests (POST)', function() {
       expect(res).to.be.a('object');
       expect(res).to.have.status(200);
       expect(res.body).to.be.a('object');
-      expect(res.body.placeID).to.equal(placeID);
-      expect(res.body.id).to.equal(id);
+      expect(res.body.results.placeID).to.equal(placeID);
+      expect(res.body.results._id).to.equal(id);
+      expect(res.body.results.downloadMbps.length).to.not.equal(0);
       done();
     });
   });

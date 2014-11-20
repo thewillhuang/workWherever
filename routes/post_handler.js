@@ -13,9 +13,8 @@ var postHandler = function(req, res) {
 
     var createJson = function(results) {
       return {
-        placeID: fields.placeID,
-        id: results._id,
-        url: '/speedtest?id=' + results._id
+        url: '/speedtest?id=' + results._id,
+        results: results
       };
     };
 
