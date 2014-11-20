@@ -2,6 +2,7 @@
 
 var chai = require('chai');
 var chaihttp = require('chai-http');
+var Results = require('../models/testResult');
 
 var server = 'http://localhost:' + (process.env.PORT || 3000);
 var expect = chai.expect;
@@ -75,13 +76,9 @@ describe('REST API tests', function() {
     });
   });
 
-  it('should be able to delete test results by database id', function(done) {
-    chai.request(server).
-    delete('/api/' + id).
-    end(function(err, res) {
+  it('cleanup', function(done) {
+    Results.remove({_id: id}, function(err) {
       expect(err).equals(null);
-      expect(res).to.be.a('object');
-      expect(res).to.have.status(200);
       done();
     });
   });
