@@ -1,14 +1,3 @@
-//goal, grab data, find the right entry in the database, inject avg results into the same location for ios to load
-//1. grab res.body data
-//2. make a copy of res.body.results array
-//3. delete res.body.results array
-//4. find place_id under each element of results array, these elements are objects
-//5. find the same place_id IF it exist for in our server database
-//6. grab the results under each mongoDb document with predefined method
-//6. inject speedTestResults to the copy of results array element[0]
-//7. loop through every element in results
-//8. re-add the results array into the res.body
-
 /*jshint node:true*/
 'use strict';
 var _ = require('underscore');
