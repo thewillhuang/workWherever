@@ -24,8 +24,10 @@ describe('Google API tests', function() {
     chai.request(server)
     .get('/google/inj/location=-33.8670522,151.1957362&radius=5000&types=food&name=cruise')
     .end(function(err, res) {
+      console.log('=========================================');
       console.log('error', err);
       console.log('res.body', res.body);
+      console.log('res.body.results[0].mockTestResults', res.body.results[0].mockTestResults);
       done();
     });
   });
