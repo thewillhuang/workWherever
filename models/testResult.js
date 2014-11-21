@@ -86,22 +86,22 @@ resultsSchema.methods.createTestResult = function() {
   if (this.parkingRating.length === 0) {
     speedTestResult.avgPark = 'no test result';
   } else {
-    speedTestResult.avgPark = this.avgPark;
+    speedTestResult.avgPark = this.avgPark();
   }
   if (this.pingMs.length === 0) {
     speedTestResult.avgPing = 'no test result';
   } else {
-    speedTestResult.avgPing = this.avgPing;
+    speedTestResult.avgPing = this.avgPing();
   }
   if (this.downloadMbps.length === 0) {
     speedTestResult.avgDl = 'no test result';
   } else {
-    speedTestResult.avgDl = this.avgDl;
+    speedTestResult.avgDl = this.avgDl();
   }
   if (this.uploadMbps.length === 0) {
     speedTestResult.avgUl = 'no test result';
   } else {
-    speedTestResult.avgUl = this.avgUl;
+    speedTestResult.avgUl = this.avgUl();
   }
   return speedTestResult;
 };
