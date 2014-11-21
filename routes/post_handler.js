@@ -2,6 +2,7 @@
 
 var formidable = require('formidable');
 var Results = require('../models/testResult');
+var jwt = require('../lib/jwt');
 
 var postHandler = function(req, res) {
   var form = new formidable.IncomingForm();
@@ -23,9 +24,11 @@ var postHandler = function(req, res) {
 
       data.save(function(err, data) {
         if (err) { return res.status(500).json({}); }
+        var token = jwt.encode(data._id);
+        delete data._id;
 
         res.json({
-          url: '/speedtest?id=' + data._id,
+          url: '/speedtest?id=' + token,
           results: data
         });
       });

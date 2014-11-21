@@ -3,6 +3,7 @@
 var chai = require('chai');
 var chaihttp = require('chai-http');
 var Results = require('../models/testResult');
+var jwt = require('../lib/jwt');
 
 var server = 'http://localhost:' + (process.env.PORT || 3000);
 var expect = chai.expect;
@@ -12,6 +13,7 @@ chai.use(chaihttp);
 
 describe('REST API tests', function() {
   var id;
+  var token;
   var placeID;
 
   it('should return 500 when place ID is not specified', function(done) {
@@ -40,8 +42,9 @@ describe('REST API tests', function() {
       placeID = res.body.results.placeID;
       expect(res.body.results).to.have.property('_id');
       id = res.body.results._id;
+      token = jwt.encode(id);
       expect(res.body).to.have.property('url');
-      expect(res.body.url).to.equal('/speedtest?id=' + id);
+      expect(res.body.url).to.equal('/speedtest?id=' + token);
       expect(res.body.results.parkingRating.length).to.not.equal(0);
       done();
     });
@@ -50,7 +53,7 @@ describe('REST API tests', function() {
   it('should be able to add download speed to test results', function(done) {
     chai.request(server).
     post('/speedtest/api').
-    send({_id: id, downloadMbps: 20.0}).
+    send({_id: token, downloadMbps: 20.0}).
     end(function(err, res) {
       expect(err).equals(null);
       expect(res).to.be.a('object');
