@@ -35,6 +35,7 @@ $(function() {
     var xhr = $.ajax({
       contentType: 'text/plain; charset=utf-8',
       url: '/speedtest/api/' + sizeKbs,
+      data: 'id=' + id,
       dataType: 'text',
       success: dfd.resolve,
       error: dfd.reject
