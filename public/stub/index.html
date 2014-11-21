@@ -6,21 +6,16 @@
   <link href="/stub/stylesheet.css" rel="stylesheet">
   </head>
   <body>
-    <form action="/api" method="post">
-      <p>IP Address: <input type="input"
-        id="ipAddress" name="ipAddress"></p>
-      <p>Download [Mbps]: <input type="input"
-        id="downloadMbps" name="downloadMbps"></p>
-      <p>Upload [Mbps]: <input type="input"
-        id="uploadMbps" name="uploadMbps"></p>
-      <p>Ping [Msec]: <input type="input"
-        id="pingMsec" name="pingMsec"></p>
-      <p><input type="submit" value="Upload"></p>
+    <a id="current"></a>
+    <hr>
+    <form action="https://work-wherever.herokuapp.com/api" method="post">
+      <p>Place ID: <input type="input" name="placeID"></p>
+      <p>Parking Rating: <input type="input" name="parkingRating"></p>
+      <p><input type="submit" value="POST"></p>
     </form>
     <hr>
-    <p>_id <input id="id" type="input"></p>
-    <p><input id="delete" type="button" value="Delete"></p>
-    <p><a href="/stub/get">Get all</a></p>
+    <p>Url: <input id="url" type="input" style="width: 90%"></p>
+    <p><a id="start">Load</a></p>
 
     <script
       src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
