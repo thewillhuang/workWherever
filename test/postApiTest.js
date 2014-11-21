@@ -30,8 +30,10 @@ describe('REST API tests', function() {
   it('should be able to create new test results', function(done) {
     chai.request(server).
     post('/api').
-    field('placeID', 'ChIJN1t_tDeuEmsRUsoyG83frY4').
-    field('parkingRating', 5).
+    send({
+      placeID: 'ChIJN1t_tDeuEmsRUsoyG83frY4',
+      parkingRating: 5
+    }).
     end(function(err, res) {
       expect(err).equals(null);
       expect(res).to.be.a('object');

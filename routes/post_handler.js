@@ -32,7 +32,7 @@ var postHandler = function(req, res) {
     });
   };
 
-  if (req.body) {
+  if (req.body && req.body.placeID) {
     return processFields(req.body);
   }
 
