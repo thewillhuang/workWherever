@@ -5,14 +5,7 @@ var Results = require('../models/testResult');
 var jwt = require('../lib/jwt');
 
 var postHandler = function(req, res) {
-  var form = new formidable.IncomingForm();
-
-  form.parse(req, function(err, fields) {
-    if (err || !fields) {
-      if (!req.body) { return res.status(500).json({}); }
-      fields = req.body;
-    }
-
+  var processFields = function(fields) {
     if (!fields.placeID) { return res.status(500).json({}); }
     if (!fields.parkingRating) { return res.status(500).json({}); }
 
@@ -37,6 +30,17 @@ var postHandler = function(req, res) {
         });
       });
     });
+  };
+
+  if (req.body) {
+    return processFields(req.body);
+  }
+
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function(err, fields) {
+    if (err || !fields) { return res.status(500).json({}); }
+    processFields(fields);
   });
 };
 
