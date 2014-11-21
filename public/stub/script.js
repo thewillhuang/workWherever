@@ -4,7 +4,7 @@ $(function() {
 
     $('#current').text(location).attr('href',
       'https://work-wherever.herokuapp.com/google/inj/location=' +
-      location + '&radius=500');
+      location + '&radius=500&types=' + $('#type').val());
   });
 
   $('#url').on('blur', function() {
