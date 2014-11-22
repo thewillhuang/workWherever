@@ -3,7 +3,7 @@ $(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
       var location = position.coords.latitude + ',' + position.coords.longitude;
 
-      var url = 'https://work-wherever.herokuapp.com/google/inj/location=' +
+      var url = '/google/inj/location=' +
         location + '&radius=500';
 
       if ($('#type').val()) { url += '&types=' + $('#type').val(); }
@@ -13,8 +13,7 @@ $(function() {
   };
 
   $('#url').on('blur', function() {
-    $('#start').attr('href', 'https://work-wherever.herokuapp.com' +
-      $('#url').val());
+    $('#start').attr('href', $('#url').val());
   });
 
   $('#type').on('blur', function() {
