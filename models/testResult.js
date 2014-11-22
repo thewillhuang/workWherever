@@ -105,5 +105,7 @@ resultsSchema.methods.createTestResult = function() {
   }
   return speedTestResult;
 };
+//added an index function for faster db reads.
+resultsSchema.index({ placeID: 1});
 
 module.exports = mongoose.model('Result', resultsSchema);

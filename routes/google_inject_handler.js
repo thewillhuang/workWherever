@@ -21,37 +21,6 @@ var googleInjHandler = function(req, res) {
     var tempResults = parsedData.results;
     //delete it to reinsert it later
     delete parsedData.results;
-    //map each object from tempresults array
-    // var mergedResults = _.map(tempResults, function(object) {
-    //   //create the right placeID key to search for in the db
-    //   var key = {
-    //     placeID: object.place_id
-    //   };
-    //   //retreve the document
-    //   var query = Results.findOne(key);
-    //   query.exec(function(err, results) {
-    //     if (err) { return console.log('error'); }
-    //     // if no results, make a new entry in the database for that key
-    //     if (!results) {
-    //       var input = new Results(key);
-    //       input.save(function(err, data) {
-    //         if (err) return console.error(err);
-    //         console.log(data);
-    //       });
-    //     // if there is results, get the average.
-    //     } else {
-    //     //execute createTestResult() that will create an object
-    //     //speedTestResult with DL, UL, Ping, Parking
-    //     //insert the result into the object
-    //       object.speedTestResults = results.createTestResult();
-    //     }
-    //   });
-    //   //this mocktestresult object will be deleted, used for testing.
-    //   //object.mockTestResults = key;
-    //   //return the modified element object
-    //   return object;
-    // });
-    // parsedData.results = mergedResults;
     //async method
     var dbquery = function(object, done) {
       var key = {placeID: object.place_id};
