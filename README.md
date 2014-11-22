@@ -70,7 +70,7 @@ var resultsSchema = new Schema({
 Server application is deployed to Heroku (https://work-wherever.herokuapp.com/). Using New Relic for monitoring.
 
 ## Presentation
-//TODO: link to slides and diagrams
+https://mega.co.nz/#!tw0m1bwB!Egxi4GkMziG2M_VmAQkG6McmQI3iLUOnWzDiKv4hNvk
 
 ## Teamwork
 Division of work: Brian (https://github.com/brmendez) - iOS experience design and development, Hiroshi (https://github.com/hirosn) - server post request handling, Josh (https://github.com/jwinskill) - iOS experience / communication design and development, William (https://github.com/thewillhuang) - server database design and get request handling. We communicated well and frequently on Gitter (https://gitter.im/thewillhuang/workWherever) and face-to-face at Code Fellows.
