@@ -7,7 +7,6 @@ var jwt = require('../lib/jwt');
 var postHandler = function(req, res) {
   var processFields = function(fields) {
     if (!fields.placeID) { return res.status(500).json({}); }
-    if (!fields.parkingRating) { return res.status(500).json({}); }
 
     Results.findOne({placeID: fields.placeID}, function(err, data) {
       if (err) { return res.status(500).json({}); }
@@ -17,12 +16,13 @@ var postHandler = function(req, res) {
         data.placeID = fields.placeID;
       }
 
-      data.addParkingRating(fields.parkingRating);
+      if (fields.parkingRating) {
+        data.addParkingRating(fields.parkingRating);
+      }
 
       data.save(function(err, data) {
         if (err) { return res.status(500).json({}); }
         var token = jwt.encode(data._id);
-        delete data._id;
 
         res.json({
           url: '/speedtest?id=' + token,
