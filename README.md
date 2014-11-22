@@ -3,7 +3,7 @@ workWherever
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/thewillhuang/workWherever?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <img src="https://travis-ci.org/thewillhuang/workWherever.svg" alt="Travis CI Badge"></img>
 
-## Heroku API Server
+## API Server
 https://work-wherever.herokuapp.com/
 (No server side public UI)
 
@@ -43,8 +43,8 @@ app.listen(app.get('port'));
 ```
 Two helper functions are implemented in modules.
 ```
-$ open jwt.js
-$ open speedtest.js
+$ open lib/jwt.js
+$ open lib/speedtest.js
 ```
 
 ## Clean Code
