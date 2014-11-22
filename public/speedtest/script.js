@@ -23,9 +23,11 @@ $(function() {
 
   var id = getQueryStrings().id;  // Database ID
   var stepKbs = 1024; // Initial size (KB) and increase by in each iteration
-  var maxItr = 5;     // Total number of download tests
+  var maxItr = 5;     // Max number of download tests
+  var minItr = 2;     // Min number of download tests
+  var thElapsed = 11; // Stop when elapsed time exceeds [sec]
 
-  var itr = maxItr;
+  var itr = 0;
   var msecStarted = new Date().getTime();
   var msecTotal = 0;
   var msecPrev;
@@ -48,8 +50,8 @@ $(function() {
       if (msecPrev) { msecTotal += msec - msecPrev; }
       msecPrev = msec;
 
-      if (itr > 0 && (itr > (maxItr - 2) || msecElapsed < 11000)) {
-        --itr;
+      if (itr < maxItr && (itr < minItr || msecElapsed < thElapsed * 1000)) {
+        ++itr;
         return speedTest(sizeKbs + stepKbs, done);
       }
 
@@ -65,13 +67,13 @@ $(function() {
   };
 
   speedTest(stepKbs, function(err) {
-    if (err || msecTotal <= 0) {
+    if (err || msecTotal <= 0 || 0 === itr) {
       //TODO: Retry?
       hideWaitAnimation();
       return;
     }
 
-    var mbps = stepKbs * 8 / (msecTotal / maxItr);  // Average M bits per sec
+    var mbps = stepKbs * 8 / (msecTotal / itr);  // Average M bits per sec
 
     var data = {
       _id: id,
