@@ -32,7 +32,6 @@ var googleInjHandler = function(req, res) {
           input.save(function(err, data) {
             if (err) return console.err(err);
             console.log(data);
-            object.speedTestResults = data.createTestResult();
           });
         } else {
           object.speedTestResults = results.createTestResult();
