@@ -45,7 +45,11 @@ $(function() {
       var msec = new Date().getTime() - +xhr.getResponseHeader('x-Date');
       if (msecPrev) { msecTotal += msec - msecPrev; }
       msecPrev = msec;
-      if (itr-- > 0) return speedTest(sizeKbs + stepKbs, done);
+
+      if (itr-- > (maxItr - 2) && msecTotal < 11000) {
+        return speedTest(sizeKbs + stepKbs, done);
+      }
+
       done();
     }).fail(function(err) {
       done(err);
