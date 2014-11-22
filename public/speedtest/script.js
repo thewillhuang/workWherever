@@ -35,6 +35,7 @@ $(function() {
     var xhr = $.ajax({
       contentType: 'text/plain; charset=utf-8',
       url: '/speedtest/api/' + sizeKbs,
+      data: 'id=' + id,
       dataType: 'text',
       success: dfd.resolve,
       error: dfd.reject
@@ -58,16 +59,7 @@ $(function() {
 
   speedTest(stepKbs, function(err) {
     if (err || msecTotal <= 0) {
-      $.ajax({
-        type: 'DELETE',
-        url: '/api/' + id,
-        success: function() {
-          //TODO: Speed test failed and database entry is deleted. Retry?
-        },
-        error: function() {
-          //TODO: Retry?
-        }
-      });
+      //TODO: Retry?
       hideWaitAnimation();
       return;
     }
@@ -95,6 +87,7 @@ $(function() {
       },
       error: function() {
         //TODO: Retry post?
+        hideWaitAnimation();
       }
     });
   });

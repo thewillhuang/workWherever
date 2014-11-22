@@ -27,4 +27,4 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 data/
-routes/test.txt
+routes/test*.txt
