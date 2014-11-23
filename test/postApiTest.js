@@ -2,6 +2,7 @@
 
 var chai = require('chai');
 var chaihttp = require('chai-http');
+var fs = require('fs');
 var Results = require('../models/testResult');
 var jwt = require('../lib/jwt');
 
@@ -94,7 +95,7 @@ describe('REST API tests', function() {
 
   it('should accept request for download size < 10MB', function(done) {
     chai.request(server).
-    get('/speedtest/api/1024').
+    get('/speedtest/api/256').
     end(function(err, res) {
       expect(err).equals(null);
       expect(res).to.be.a('object');
@@ -106,6 +107,7 @@ describe('REST API tests', function() {
   it('cleanup', function(done) {
     Results.remove({_id: id}, function(err) {
       expect(err).equals(null);
+      expect(fs.existsSync(__dirname + '/../routes/test.txt')).to.equal(false);
       done();
     });
   });
