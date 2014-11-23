@@ -8,7 +8,7 @@ var speedTestGetHandler = function(req, res) {
   if (+req.params.sizeKbs > 10240) { return res.status(500).send(); }
   var textFile = __dirname + '/test.txt';
 
-  if (req.query) {
+  if (req.query && req.query.id) {
     textFile = __dirname + '/test_' + req.query.id +
       new Date().getTime() + Math.floor(Math.random() * 100) + '.txt';
   }
