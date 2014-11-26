@@ -1,0 +1,17 @@
+* {
+  font-family: Helvetica, Arial;
+}
+
+body {
+  text-align: center;
+  background-color: teal;
+}
+
+.results {
+  margin-top: 8em;
+}
+
+.result {
+  font-size: 24pt;
+  color: white;
+}

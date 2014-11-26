@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/_stub/stylesheet.css" rel="stylesheet">
+  </head>
+  <body>
+    <p>Name: <input id="name" type="input"></p>
+    <p>Type: <input id="type" type="input" value="cafe"> <a id="current"></a></p>
+    <p><a target="_blank"
+      href="http://developers.google.com/places/documentation/supported_types">
+      Supported Ttypes</a></p>
+    <hr>
+    <form action="/api" method="post">
+      <p>Place ID: <input type="input" name="placeID"></p>
+      <p><input type="submit" value="POST"></p>
+    </form>
+    <hr>
+    <form action="/api" method="post">
+      <p>Place ID: <input type="input" name="placeID"></p>
+      <p>Parking Rating: <input type="input" name="parkingRating"></p>
+      <p><input type="submit" value="POST"></p>
+    </form>
+    <hr>
+    <p>Url: <input id="url" type="input" style="width: 90%"></p>
+    <p><a id="start">Load</a></p>
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+    </script>
+    <script src="/_stub/script.js"></script>
+  </body>
+</html>
